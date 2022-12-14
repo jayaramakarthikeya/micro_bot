@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="bot_essentials" >
+
+    <xacro:macro name="wheel_joint" params="prefix origin">
+        <joint type="continuous" name="${prefix}_wheel_hinge">
+            <origin xyz="${origin}" rpy="0 0 0"/>
+            <child link="${prefix}_wheel"/>
+            <parent link="chassis"/>
+            <axis xyz="0 1 0" rpy="0 0 0"/>
+            <limit effort="10000" velocity="1000"/>
+            <dynamics damping="1.0" friction="1.0"/>
+        </joint>
+    </xacro:macro>
+
+</robot>

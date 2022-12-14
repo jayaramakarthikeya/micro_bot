@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <include file="$(find micro_bot)/launch/robot_description.launch"/>
+  <arg name="world" default="empty"/> 
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+<!-- From turtlebot launch to enable specifying world file as command line argument  
+https://github.com/turtlebot/turtlebot_simulator/blob/indigo/turtlebot_gazebo/launch/turtlebot_world.launch -->
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find micro_bot)/worlds/kitchen_dining.world"/> 
+    <arg name="use_sim_time" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="gui" value="$(arg gui)" />
+    <!-- <arg name="world_name" default="worlds/empty.world"/>  -->
+</include>
+  <!-- <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include> -->
+
+  <!--spawn a robot in gazebo world-->
+
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" 
+  output="screen" args="-urdf -param robot_description -model micro_bot"/>
+  
+
+ <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find micro_bot)/launch/robot_slam.rviz"/> -->
+
+
+</launch>
